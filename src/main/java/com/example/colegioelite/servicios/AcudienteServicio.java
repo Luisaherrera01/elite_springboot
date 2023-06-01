@@ -17,10 +17,8 @@ public class AcudienteServicio implements ServicioBase<Acudiente> {
         try{
             List<Acudiente>acudientes=acudienteRepositorio.findAll();
             return acudientes;
-
         }catch(Exception error){
             throw new Exception(error.getMessage());
-
         }
     }
 
@@ -41,10 +39,8 @@ public class AcudienteServicio implements ServicioBase<Acudiente> {
     @Override
     public Acudiente registrar(Acudiente datosARegistrar) throws Exception {
         try{
-
             Acudiente acudianteGuardado=acudienteRepositorio.save(datosARegistrar);
             return acudianteGuardado;
-
         }catch(Exception error){
             throw new Exception(error.getMessage());
         }
@@ -53,7 +49,6 @@ public class AcudienteServicio implements ServicioBase<Acudiente> {
     @Override
     public Acudiente actualizar(Integer id, Acudiente datosNuevos) throws Exception {
         try{
-
             Optional<Acudiente>acudienteOpcional =acudienteRepositorio.findById(id);
             if(acudienteOpcional.isPresent()){
                 Acudiente acudienteExistente=acudienteOpcional.get();
@@ -64,7 +59,6 @@ public class AcudienteServicio implements ServicioBase<Acudiente> {
             }else{
                 throw new Exception("Usuario no encontrado");
             }
-
         }catch(Exception error){
             throw new Exception(error.getMessage());
         }
