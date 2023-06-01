@@ -3,16 +3,20 @@ package com.example.colegioelite.servicios;
 import com.example.colegioelite.entidades.Acudiente;
 import com.example.colegioelite.repositorios.AcudienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AcudienteServicio implements ServicioBase<Acudiente> {
 
     @Autowired
     protected AcudienteRepositorio acudienteRepositorio;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Acudiente> buscarTodos() throws Exception {
         try{
             List<Acudiente>acudientes=acudienteRepositorio.findAll();

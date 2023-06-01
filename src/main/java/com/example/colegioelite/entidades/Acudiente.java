@@ -1,5 +1,7 @@
 package com.example.colegioelite.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,7 +21,11 @@ public class Acudiente {
 
     @OneToOne
     @JoinColumn(name="id_estudiante")
+    @JsonManagedReference
     private Estudiante estudiante;
+
+    @Transient
+    private String mensjeError;
 
     public Acudiente() {
     }
@@ -61,5 +67,13 @@ public class Acudiente {
 
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
+    }
+
+    public String getMensjeError() {
+        return mensjeError;
+    }
+
+    public void setMensjeError(String mensjeError) {
+        this.mensjeError = mensjeError;
     }
 }

@@ -4,17 +4,21 @@ import com.example.colegioelite.entidades.Acudiente;
 import com.example.colegioelite.entidades.Estudiante;
 import com.example.colegioelite.repositorios.EstudianteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 
+@Service
 public class EstudianteServicio implements ServicioBase<Estudiante> {
 
     @Autowired
     private EstudianteRepositorio estudianteRepositorio;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Estudiante> buscarTodos() throws Exception {
         try{
             List<Estudiante>estudiantes=estudianteRepositorio.findAll();
@@ -27,6 +31,7 @@ public class EstudianteServicio implements ServicioBase<Estudiante> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Estudiante buscarPorId(Integer id) throws Exception {
         try{
             Optional<Estudiante> estudianteOpcional =estudianteRepositorio.findById(id);
@@ -42,7 +47,11 @@ public class EstudianteServicio implements ServicioBase<Estudiante> {
 
     @Override
     public Estudiante registrar(Estudiante datosARegistrar) throws Exception {
-        return null;
+        try{
+            return estudianteRepositorio.save(datosARegistrar);
+        }catch(Exception error){
+            throw new Exception(error.getMessage());
+        }
     }
 
     @Override
